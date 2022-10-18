@@ -3,7 +3,7 @@ using Discord.Interactions;
 using Discord.WebSocket;
 using JetBrains.Annotations;
 
-namespace Amadeus.Modules;
+namespace Amadeus.InteractionModules;
 
 [UsedImplicitly(ImplicitUseTargetFlags.Members)]
 public class StatsModule : InteractionModuleBase<SocketInteractionContext>

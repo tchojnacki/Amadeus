@@ -1,22 +1,22 @@
-﻿using Discord.Interactions;
-using Discord.WebSocket;
+﻿using System.Reflection;
 using Discord;
-using System.Reflection;
+using Discord.Interactions;
+using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 
-namespace Amadeus;
+namespace Amadeus.Services;
 
-internal class InteractionHandler
+internal class InteractionHandlerService
 {
     private readonly DiscordSocketClient _client;
-    private readonly InteractionService _handler;
+    private readonly InteractionService _interactionService;
     private readonly IServiceProvider _services;
     private readonly IConfiguration _configuration;
 
-    public InteractionHandler(DiscordSocketClient client, InteractionService handler, IServiceProvider services, IConfiguration configuration)
+    public InteractionHandlerService(DiscordSocketClient client, InteractionService interactionService, IServiceProvider services, IConfiguration configuration)
     {
         _client = client;
-        _handler = handler;
+        _interactionService = interactionService;
         _services = services;
         _configuration = configuration;
     }
@@ -24,10 +24,10 @@ internal class InteractionHandler
     public async Task InitializeAsync()
     {
         _client.Ready += ReadyAsync;
-        _handler.Log += LogAsync;
-        
-        await _handler.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
-        
+        _interactionService.Log += LogAsync;
+
+        await _interactionService.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
+
         _client.InteractionCreated += HandleInteraction;
     }
 
@@ -40,9 +40,10 @@ internal class InteractionHandler
     private async Task ReadyAsync()
     {
         #if DEBUG
-            await _handler.RegisterCommandsToGuildAsync(_configuration.GetValue<ulong>("Bot:MainGuild"));
+            await _interactionService.RegisterCommandsToGuildAsync(
+                _configuration.GetValue<ulong>("Bot:MainGuild"));
         #else
-            await _handler.RegisterCommandsGloballyAsync();
+            await _interactionService.RegisterCommandsGloballyAsync();
         #endif
     }
 
@@ -51,7 +52,7 @@ internal class InteractionHandler
         try
         {
             var context = new SocketInteractionContext(_client, interaction);
-            await _handler.ExecuteCommandAsync(context, _services);
+            await _interactionService.ExecuteCommandAsync(context, _services);
         }
         catch
         {
