@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using MediatR;
 
-namespace Amadeus.Modules.BotStats.GetBotStats;
+namespace Amadeus.Modules.Statistics.GetBotStats;
 
 [UsedImplicitly]
 internal sealed class GetBotStatsHandler : IRequestHandler<GetBotStatsQuery, BotStatsDto>

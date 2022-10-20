@@ -1,6 +1,6 @@
 ﻿using Amadeus.Services;
-using Discord.WebSocket;
 using Discord;
+using Discord.WebSocket;
 
 namespace Amadeus;
 

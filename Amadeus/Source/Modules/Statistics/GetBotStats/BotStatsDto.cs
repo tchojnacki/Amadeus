@@ -1,4 +1,4 @@
-﻿namespace Amadeus.Modules.BotStats.GetBotStats;
+﻿namespace Amadeus.Modules.Statistics.GetBotStats;
 
 internal sealed record BotStatsDto
 {
