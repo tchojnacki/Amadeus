@@ -2,6 +2,7 @@
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,10 +19,12 @@ internal static class ServiceCollectionExtensions
         });
 
         services
-            .AddSingleton(client)
             .AddSingleton(configuration)
+            .AddMediatR(typeof(ServiceCollectionExtensions))
+            .AddSingleton(client)
             .AddSingleton<InteractionService>()
-            .AddSingleton<InteractionHandlerService>()
+            .AddSingleton<IMessageBuilderService, MessageBuilderService>()
+            .AddSingleton<IInteractionHandlerService, InteractionHandlerService>()
             .AddSingleton<Bot>()
             .BuildServiceProvider();
 

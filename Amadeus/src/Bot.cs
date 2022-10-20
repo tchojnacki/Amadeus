@@ -4,12 +4,12 @@ using Discord;
 
 namespace Amadeus;
 
-internal class Bot
+internal sealed class Bot
 {
     private readonly DiscordSocketClient _client;
-    private readonly InteractionHandlerService _interactionHandlerService;
+    private readonly IInteractionHandlerService _interactionHandlerService;
 
-    public Bot(DiscordSocketClient client, InteractionHandlerService interactionHandlerService)
+    public Bot(DiscordSocketClient client, IInteractionHandlerService interactionHandlerService)
     {
         _client = client;
         _interactionHandlerService = interactionHandlerService;

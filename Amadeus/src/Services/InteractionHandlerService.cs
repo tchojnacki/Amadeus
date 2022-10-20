@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Amadeus.Services;
 
-internal class InteractionHandlerService
+internal sealed class InteractionHandlerService : IInteractionHandlerService
 {
     private readonly DiscordSocketClient _client;
     private readonly InteractionService _interactionService;
