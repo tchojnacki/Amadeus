@@ -1,8 +1,9 @@
 ﻿using System.Reflection;
-using Discord;
+using Amadeus.Utils;
 using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Amadeus.Services;
 
@@ -12,29 +13,25 @@ internal sealed class InteractionHandlerService : IInteractionHandlerService
     private readonly InteractionService _interactionService;
     private readonly IServiceProvider _services;
     private readonly IConfiguration _configuration;
+    private readonly ILogger<InteractionHandlerService> _logger;
 
-    public InteractionHandlerService(DiscordSocketClient client, InteractionService interactionService, IServiceProvider services, IConfiguration configuration)
+    public InteractionHandlerService(DiscordSocketClient client, InteractionService interactionService, IServiceProvider services, IConfiguration configuration, ILogger<InteractionHandlerService> logger)
     {
         _client = client;
         _interactionService = interactionService;
         _services = services;
         _configuration = configuration;
+        _logger = logger;
     }
 
     public async Task InitializeAsync()
     {
         _client.Ready += ReadyAsync;
-        _interactionService.Log += LogAsync;
+        _interactionService.Log += DiscordLoggingAdapter.BuildAsyncLogger(_logger);
 
         await _interactionService.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
 
         _client.InteractionCreated += HandleInteraction;
-    }
-
-    private static Task LogAsync(LogMessage message)
-    {
-        Console.WriteLine(message.ToString());
-        return Task.CompletedTask;
     }
 
     private async Task ReadyAsync()
@@ -54,9 +51,9 @@ internal sealed class InteractionHandlerService : IInteractionHandlerService
             var context = new SocketInteractionContext(_client, interaction);
             await _interactionService.ExecuteCommandAsync(context, _services);
         }
-        catch
+        catch (Exception exception)
         {
-            Console.WriteLine("Error occurred while handling interaction!");
+            _logger.LogError("Error occurred while handling interaction! {Exception}", exception);
         }
     }
 }

@@ -7,6 +7,7 @@ using Discord.WebSocket;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Amadeus.Utils;
 
@@ -32,6 +33,7 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddSingleton(configuration)
+            .AddLogging(builder => builder.AddConsole())
             .AddMediatR(assembly)
             .AddSingleton(client)
             .AddSingleton(interactionService)
