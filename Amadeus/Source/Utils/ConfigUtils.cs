@@ -13,7 +13,7 @@ internal static class ConfigUtils
 
         return new ConfigurationBuilder()
             .AddEnvironmentVariables(prefix: EnvVariablePrefix)
-            .AddJsonFile("appsettings.json", optional: true)
+            .AddJsonFile("appsettings.json")
             .Build();
     }
 }

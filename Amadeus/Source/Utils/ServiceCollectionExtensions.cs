@@ -17,26 +17,28 @@ internal static class ServiceCollectionExtensions
     {
         var assembly = Assembly.GetExecutingAssembly();
 
-        var client = new DiscordSocketClient(new DiscordSocketConfig
+        var discordSocketConfig = new DiscordSocketConfig
         {
             GatewayIntents = GatewayIntents.None,
             AlwaysDownloadUsers = true,
-        });
+        };
 
-        var interactionService = new InteractionService(client, new InteractionServiceConfig
+        var interactionServiceConfig = new InteractionServiceConfig
         {
             LocalizationManager = new ResxLocalizationManager(
                 "Amadeus.Resources.I18n",
                 assembly,
                 CultureInfo.GetCultureInfo("pl"))
-        });
+        };
 
         services
             .AddSingleton(configuration)
             .AddLogging(builder => builder.AddConsole())
             .AddMediatR(assembly)
-            .AddSingleton(client)
-            .AddSingleton(interactionService)
+            .AddSingleton(discordSocketConfig)
+            .AddSingleton(interactionServiceConfig)
+            .AddSingleton<DiscordSocketClient>()
+            .AddSingleton<InteractionService>()
             .AddSingleton<IMessageBuilderService, MessageBuilderService>()
             .AddSingleton<IInteractionHandlerService, InteractionHandlerService>()
             .AddSingleton<Bot>()
