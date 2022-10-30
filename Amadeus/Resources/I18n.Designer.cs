@@ -61,6 +61,132 @@ namespace Amadeus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} eliminuje **{1}**!.
+        /// </summary>
+        internal static string BattleRoyale_Eliminates {
+            get {
+                return ResourceManager.GetString("BattleRoyale.Eliminates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Komenda musi być użyta na kanale tekstowym!.
+        /// </summary>
+        internal static string BattleRoyale_MustBeUsedInTextChannel {
+            get {
+                return ResourceManager.GetString("BattleRoyale.MustBeUsedInTextChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Za mało uczestników!.
+        /// </summary>
+        internal static string BattleRoyale_NotEnoughPlayers {
+            get {
+                return ResourceManager.GetString("BattleRoyale.NotEnoughPlayers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nic się nie dzieje....
+        /// </summary>
+        internal static string BattleRoyale_NothingHappens {
+            get {
+                return ResourceManager.GetString("BattleRoyale.NothingHappens", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to , .
+        /// </summary>
+        internal static string BattleRoyale_PlayerListConnector {
+            get {
+                return ResourceManager.GetString("BattleRoyale.PlayerListConnector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  i .
+        /// </summary>
+        internal static string BattleRoyale_PlayerListLastConnector {
+            get {
+                return ResourceManager.GetString("BattleRoyale.PlayerListLastConnector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uczestnicy.
+        /// </summary>
+        internal static string BattleRoyale_Players {
+            get {
+                return ResourceManager.GetString("BattleRoyale.Players", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rozpoczynanie gry!.
+        /// </summary>
+        internal static string BattleRoyale_StartingGame {
+            get {
+                return ResourceManager.GetString("BattleRoyale.StartingGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Battle Royale.
+        /// </summary>
+        internal static string BattleRoyale_Title {
+            get {
+                return ResourceManager.GetString("BattleRoyale.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to **{0} wygrywa grę! 🎉**.
+        /// </summary>
+        internal static string BattleRoyale_Wins {
+            get {
+                return ResourceManager.GetString("BattleRoyale.Wins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przeprowadź rozgrywkę Battle Royale..
+        /// </summary>
+        internal static string br_description {
+            get {
+                return ResourceManager.GetString("br.description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to br.
+        /// </summary>
+        internal static string br_name {
+            get {
+                return ResourceManager.GetString("br.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uczestnicy walki oddzieleni spacją.
+        /// </summary>
+        internal static string br_players_description {
+            get {
+                return ResourceManager.GetString("br.players.description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to uczestnicy.
+        /// </summary>
+        internal static string br_players_name {
+            get {
+                return ResourceManager.GetString("br.players.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sprawdź statystyki bota..
         /// </summary>
         internal static string statistics_description {
