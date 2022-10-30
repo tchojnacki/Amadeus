@@ -117,6 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BattleRoyale.Eliminates" xml:space="preserve">
+    <value>{0} eliminuje **{1}**!</value>
+  </data>
+  <data name="BattleRoyale.MustBeUsedInTextChannel" xml:space="preserve">
+    <value>Komenda musi być użyta na kanale tekstowym!</value>
+  </data>
+  <data name="BattleRoyale.NotEnoughPlayers" xml:space="preserve">
+    <value>Za mało uczestników!</value>
+  </data>
+  <data name="BattleRoyale.NothingHappens" xml:space="preserve">
+    <value>Nic się nie dzieje...</value>
+  </data>
+  <data name="BattleRoyale.PlayerListConnector" xml:space="preserve">
+    <value>, </value>
+  </data>
+  <data name="BattleRoyale.PlayerListLastConnector" xml:space="preserve">
+    <value> i </value>
+  </data>
+  <data name="BattleRoyale.Players" xml:space="preserve">
+    <value>Uczestnicy</value>
+  </data>
+  <data name="BattleRoyale.StartingGame" xml:space="preserve">
+    <value>Rozpoczynanie gry!</value>
+  </data>
+  <data name="BattleRoyale.Title" xml:space="preserve">
+    <value>Battle Royale</value>
+  </data>
+  <data name="BattleRoyale.Wins" xml:space="preserve">
+    <value>**{0} wygrywa grę! 🎉**</value>
+  </data>
+  <data name="br.description" xml:space="preserve">
+    <value>Przeprowadź rozgrywkę Battle Royale.</value>
+  </data>
+  <data name="br.name" xml:space="preserve">
+    <value>br</value>
+  </data>
+  <data name="br.players.description" xml:space="preserve">
+    <value>Uczestnicy walki oddzieleni spacją</value>
+  </data>
+  <data name="br.players.name" xml:space="preserve">
+    <value>uczestnicy</value>
+  </data>
   <data name="statistics.description" xml:space="preserve">
     <value>Sprawdź statystyki bota.</value>
   </data>
