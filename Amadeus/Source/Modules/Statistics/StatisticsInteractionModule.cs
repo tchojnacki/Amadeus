@@ -1,9 +1,6 @@
 ﻿using Amadeus.Modules.Statistics.GetBotStats;
-using Amadeus.Resources;
 using Amadeus.Services;
 using Discord.Interactions;
-using JetBrains.Annotations;
-using MediatR;
 
 namespace Amadeus.Modules.Statistics;
 

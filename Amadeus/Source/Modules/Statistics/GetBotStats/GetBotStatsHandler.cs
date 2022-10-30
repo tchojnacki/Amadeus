@@ -1,6 +1,4 @@
 ﻿using Discord.WebSocket;
-using JetBrains.Annotations;
-using MediatR;
 
 namespace Amadeus.Modules.Statistics.GetBotStats;
 

@@ -1,7 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using Amadeus.Resources;
-using JetBrains.Annotations;
-using MediatR;
 
 namespace Amadeus.Modules.BattleRoyale.PlayGame;
 

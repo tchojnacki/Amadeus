@@ -1,12 +1,9 @@
 ﻿using System.Text.RegularExpressions;
 using Amadeus.Modules.BattleRoyale.PlayGame;
-using Amadeus.Resources;
 using Amadeus.Services;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
-using JetBrains.Annotations;
-using MediatR;
 
 namespace Amadeus.Modules.BattleRoyale;
 
