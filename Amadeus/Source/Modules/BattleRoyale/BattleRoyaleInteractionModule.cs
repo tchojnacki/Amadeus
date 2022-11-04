@@ -1,9 +1,9 @@
-﻿using System.Text.RegularExpressions;
-using Amadeus.Modules.BattleRoyale.PlayGame;
+﻿using Amadeus.Modules.BattleRoyale.PlayGame;
 using Amadeus.Services;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
+using System.Text.RegularExpressions;
 
 namespace Amadeus.Modules.BattleRoyale;
 
@@ -12,7 +12,7 @@ public sealed class BattleRoyaleInteractionModule : InteractionModuleBase<Socket
 {
     private const string ThreadName = "battle-royale";
     private static readonly Regex PlayerNamePattern = new(
-        "(?:[^\\s\"]+|\"[^\"]*\")+", 
+        "(?:[^\\s\"]+|\"[^\"]*\")+",
         RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
     private readonly IMediator _mediator;
@@ -26,6 +26,7 @@ public sealed class BattleRoyaleInteractionModule : InteractionModuleBase<Socket
         _discordSocketClient = discordSocketClient;
     }
 
+    [EnabledInDm(true)]
     [SlashCommand("br", "Play a game of Battle Royale.")]
     public async Task ExecuteBattleRoyaleCommandAsync(
         [Summary(name: "players", description: "Players separated by a space")] string rawPlayers)
@@ -43,7 +44,7 @@ public sealed class BattleRoyaleInteractionModule : InteractionModuleBase<Socket
             return;
         }
 
-        var channel = Context.Interaction.ChannelId is {} channelId
+        var channel = Context.Interaction.ChannelId is { } channelId
             ? (await _discordSocketClient.GetChannelAsync(channelId))
             : null;
 

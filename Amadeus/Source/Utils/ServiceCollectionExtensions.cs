@@ -1,12 +1,12 @@
-﻿using System.Globalization;
-using System.Reflection;
-using Amadeus.Services;
+﻿using Amadeus.Services;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Globalization;
+using System.Reflection;
 
 namespace Amadeus.Utils;
 
@@ -18,8 +18,8 @@ internal static class ServiceCollectionExtensions
 
         var discordSocketConfig = new DiscordSocketConfig
         {
-            GatewayIntents = GatewayIntents.None,
-            AlwaysDownloadUsers = true,
+            GatewayIntents = GatewayIntents.Guilds,
+            AlwaysDownloadUsers = true
         };
 
         var interactionServiceConfig = new InteractionServiceConfig
