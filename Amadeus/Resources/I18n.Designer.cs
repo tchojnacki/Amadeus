@@ -187,6 +187,70 @@ namespace Amadeus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ilość wiadomości do usunięcia.
+        /// </summary>
+        internal static string purge_count_description {
+            get {
+                return ResourceManager.GetString("purge.count.description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ilość.
+        /// </summary>
+        internal static string purge_count_name {
+            get {
+                return ResourceManager.GetString("purge.count.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usunięto {0} wiadomości!.
+        /// </summary>
+        internal static string Purge_DeletedCount {
+            get {
+                return ResourceManager.GetString("Purge.DeletedCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuń kilka poprzednich wiadomości..
+        /// </summary>
+        internal static string purge_description {
+            get {
+                return ResourceManager.GetString("purge.description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieodpowiednia ilość wiadomości!
+        ///Podaj liczbę z zakresu 1 do {0}..
+        /// </summary>
+        internal static string Purge_IncorrectMessageCount {
+            get {
+                return ResourceManager.GetString("Purge.IncorrectMessageCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie można tego użyć na tym kanale!.
+        /// </summary>
+        internal static string Purge_InvalidChannelType {
+            get {
+                return ResourceManager.GetString("Purge.InvalidChannelType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to czyść.
+        /// </summary>
+        internal static string purge_name {
+            get {
+                return ResourceManager.GetString("purge.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sprawdź statystyki bota..
         /// </summary>
         internal static string statistics_description {

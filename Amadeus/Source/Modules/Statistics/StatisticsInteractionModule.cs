@@ -16,6 +16,7 @@ public sealed class StatisticsInteractionModule : InteractionModuleBase<SocketIn
         _messageBuilder = messageBuilder;
     }
 
+    [EnabledInDm(true)]
     [SlashCommand("statistics", "Show bot's statistics.")]
     public async Task ExecuteStatisticsCommandAsync()
     {

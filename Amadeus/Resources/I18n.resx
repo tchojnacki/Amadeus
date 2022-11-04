@@ -159,6 +159,28 @@
   <data name="br.players.name" xml:space="preserve">
     <value>uczestnicy</value>
   </data>
+  <data name="purge.count.description" xml:space="preserve">
+    <value>Ilość wiadomości do usunięcia</value>
+  </data>
+  <data name="purge.count.name" xml:space="preserve">
+    <value>ilość</value>
+  </data>
+  <data name="Purge.DeletedCount" xml:space="preserve">
+    <value>Usunięto {0} wiadomości!</value>
+  </data>
+  <data name="purge.description" xml:space="preserve">
+    <value>Usuń kilka poprzednich wiadomości.</value>
+  </data>
+  <data name="Purge.IncorrectMessageCount" xml:space="preserve">
+    <value>Nieodpowiednia ilość wiadomości!
+Podaj liczbę z zakresu 1 do {0}.</value>
+  </data>
+  <data name="Purge.InvalidChannelType" xml:space="preserve">
+    <value>Nie można tego użyć na tym kanale!</value>
+  </data>
+  <data name="purge.name" xml:space="preserve">
+    <value>czyść</value>
+  </data>
   <data name="statistics.description" xml:space="preserve">
     <value>Sprawdź statystyki bota.</value>
   </data>
