@@ -15,7 +15,13 @@ internal sealed class InteractionHandlerService : IInteractionHandlerService
     private readonly IConfiguration _configuration;
     private readonly ILogger<InteractionHandlerService> _logger;
 
-    public InteractionHandlerService(DiscordSocketClient client, InteractionService interactionService, IServiceProvider services, IConfiguration configuration, ILogger<InteractionHandlerService> logger)
+    public InteractionHandlerService(
+        DiscordSocketClient client,
+        InteractionService interactionService,
+        IServiceProvider services,
+        IConfiguration configuration,
+        ILogger<InteractionHandlerService> logger
+    )
     {
         _client = client;
         _interactionService = interactionService;
@@ -36,12 +42,13 @@ internal sealed class InteractionHandlerService : IInteractionHandlerService
 
     private async Task ReadyAsync()
     {
-        #if DEBUG
-            await _interactionService.RegisterCommandsToGuildAsync(
-                _configuration.GetValue<ulong>("Bot:MainGuild"));
-        #else
-            await _interactionService.RegisterCommandsGloballyAsync();
-        #endif
+#if DEBUG
+        await _interactionService.RegisterCommandsToGuildAsync(
+            _configuration.GetValue<ulong>("Bot:MainGuild")
+        );
+#else
+        await _interactionService.RegisterCommandsGloballyAsync();
+#endif
     }
 
     private async Task HandleInteraction(SocketInteraction interaction)

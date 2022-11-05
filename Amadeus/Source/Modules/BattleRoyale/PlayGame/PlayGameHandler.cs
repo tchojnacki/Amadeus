@@ -10,8 +10,8 @@ internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, str
 
     private static readonly Random Random = new();
 
-    private static TimeSpan RandomDelayDuration()
-        => TimeSpan.FromMilliseconds(Random.NextDouble() * 1000);
+    private static TimeSpan RandomDelayDuration() =>
+        TimeSpan.FromMilliseconds(Random.NextDouble() * 1000);
 
     private sealed class KillAction
     {
@@ -32,7 +32,8 @@ internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, str
 
         foreach (var item in items)
         {
-            if (roll < item.Weight) return item.Count;
+            if (roll < item.Weight)
+                return item.Count;
             roll -= item.Weight;
         }
 
@@ -61,13 +62,17 @@ internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, str
     private static string FormatPlayerGroup(IEnumerable<string> players)
     {
         var list = players.ToList();
-        if (list.Count == 1) return list.Single();
-        return string.Join(I18n.BattleRoyale_PlayerListConnector, list.Take(list.Count - 1)) +
-               I18n.BattleRoyale_PlayerListLastConnector + list.Last();
+        if (list.Count == 1)
+            return list.Single();
+        return string.Join(I18n.BattleRoyale_PlayerListConnector, list.Take(list.Count - 1))
+            + I18n.BattleRoyale_PlayerListLastConnector
+            + list.Last();
     }
 
-    public async IAsyncEnumerable<string> Handle(PlayGameQuery request,
-        [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<string> Handle(
+        PlayGameQuery request,
+        [EnumeratorCancellation] CancellationToken cancellationToken
+    )
     {
         var players = request.PlayerNames.ToList();
 
@@ -82,7 +87,8 @@ internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, str
                 yield return string.Format(
                     I18n.BattleRoyale_Eliminates,
                     FormatPlayerGroup(killers),
-                    FormatPlayerGroup(victims));
+                    FormatPlayerGroup(victims)
+                );
 
                 foreach (var victimIndex in killAction.VictimIndices.OrderByDescending(i => i))
                     players.RemoveAt(victimIndex);

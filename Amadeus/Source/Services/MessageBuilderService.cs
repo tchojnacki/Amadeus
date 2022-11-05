@@ -12,19 +12,16 @@ internal sealed class MessageBuilderService : IMessageBuilderService
 
     public MessageBuilderService(DiscordSocketClient client) => _client = client;
 
-    private EmbedFooterBuilder FooterBuilder
-        => new EmbedFooterBuilder()
+    private EmbedFooterBuilder FooterBuilder =>
+        new EmbedFooterBuilder()
             .WithText(_client.CurrentUser.Username)
             .WithIconUrl(_client.CurrentUser.GetAvatarUrl());
 
-    public EmbedBuilder ResponseTemplate
-        => new EmbedBuilder()
-            .WithColor(SuccessColor)
-            .WithFooter(FooterBuilder)
-            .WithCurrentTimestamp();
+    public EmbedBuilder ResponseTemplate =>
+        new EmbedBuilder().WithColor(SuccessColor).WithFooter(FooterBuilder).WithCurrentTimestamp();
 
-    public Embed ErrorEmbed(string message)
-        => new EmbedBuilder()
+    public Embed ErrorEmbed(string message) =>
+        new EmbedBuilder()
             .WithColor(ErrorColor)
             .WithTitle("Error")
             .WithDescription(message)

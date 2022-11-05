@@ -12,7 +12,10 @@ namespace Amadeus.Utils;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddAmadeusServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddAmadeusServices(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
         var assembly = Assembly.GetExecutingAssembly();
 
@@ -27,7 +30,8 @@ internal static class ServiceCollectionExtensions
             LocalizationManager = new ResxLocalizationManager(
                 "Amadeus.Resources.I18n",
                 assembly,
-                CultureInfo.GetCultureInfo("pl"))
+                CultureInfo.GetCultureInfo("pl")
+            )
         };
 
         services

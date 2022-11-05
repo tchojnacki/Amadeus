@@ -5,9 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 var configuration = ConfigUtils.LoadConfiguration();
 
-var services = new ServiceCollection()
-    .AddAmadeusServices(configuration)
-    .BuildServiceProvider();
+var services = new ServiceCollection().AddAmadeusServices(configuration).BuildServiceProvider();
 
 var bot = services.GetRequiredService<Bot>();
 await bot.RunAsync(configuration.GetValue<string>("DiscordToken"));
