@@ -21,5 +21,9 @@ jobs:
         run: dotnet tool restore
       - name: Check formatting
         run: dotnet csharpier . --check
+      - name: Run code analysis
+        uses: dotnet/code-analysis@v1
+        with:
+          build-breaking: true
       - name: Build
         run: dotnet build --configuration Release --no-restore
