@@ -30,6 +30,7 @@ public sealed class StatisticsInteractionModule : InteractionModuleBase<SocketIn
                 .AddField(I18n.Statistics_VideoLabel, response.VideoCount, true)
                 .AddField(I18n.Statistics_QuoteLabel, response.QuoteCount, true)
                 .AddField(I18n.Statistics_GrantedExpLabel, response.GrantedExpSum, true)
-                .Build());
+                .Build()
+        );
     }
 }

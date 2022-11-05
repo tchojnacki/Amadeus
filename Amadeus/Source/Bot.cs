@@ -12,7 +12,11 @@ internal sealed class Bot
     private readonly IInteractionHandlerService _interactionHandlerService;
     private readonly ILogger<Bot> _logger;
 
-    public Bot(DiscordSocketClient client, IInteractionHandlerService interactionHandlerService, ILogger<Bot> logger)
+    public Bot(
+        DiscordSocketClient client,
+        IInteractionHandlerService interactionHandlerService,
+        ILogger<Bot> logger
+    )
     {
         _client = client;
         _interactionHandlerService = interactionHandlerService;
@@ -22,12 +26,12 @@ internal sealed class Bot
     public async Task RunAsync(string token)
     {
         _client.Log += DiscordLoggingAdapter.BuildAsyncLogger(_logger);
-        
+
         await _interactionHandlerService.InitializeAsync();
-        
+
         await _client.LoginAsync(TokenType.Bot, token);
         await _client.StartAsync();
-        
+
         await Task.Delay(Timeout.Infinite);
     }
 }
