@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET Core SDK 6.0.x
@@ -21,9 +21,5 @@ jobs:
         run: dotnet tool restore
       - name: Check formatting
         run: dotnet csharpier . --check
-      - name: Run code analysis
-        uses: dotnet/code-analysis@v1
-        with:
-          build-breaking: true
       - name: Build
         run: dotnet build --configuration Release --no-restore
