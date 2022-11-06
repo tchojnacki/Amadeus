@@ -17,7 +17,7 @@ Primary:
 - [.NET 6.0](https://dotnet.microsoft.com/en-us)
 - [Discord.Net](https://discordnet.dev)
 - [MediatR](https://github.com/jbogard/MediatR)
-- Microsoft.Extensions ([Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration), [DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection), [Logging](https://www.nuget.org/packages/Microsoft.Extensions.Logging)
+- Microsoft.Extensions ([Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration), [DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection), [Logging](https://www.nuget.org/packages/Microsoft.Extensions.Logging))
 
 Tooling:
 - [Husky.Net](https://github.com/alirezanet/Husky.Net)
