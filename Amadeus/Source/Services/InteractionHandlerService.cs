@@ -37,7 +37,7 @@ internal sealed class InteractionHandlerService : IInteractionHandlerService
 
         await _interactionService.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
 
-        _client.InteractionCreated += HandleInteraction;
+        _client.InteractionCreated += HandleInteractionAsync;
     }
 
     private async Task ReadyAsync()
@@ -51,7 +51,7 @@ internal sealed class InteractionHandlerService : IInteractionHandlerService
 #endif
     }
 
-    private async Task HandleInteraction(SocketInteraction interaction)
+    private async Task HandleInteractionAsync(SocketInteraction interaction)
     {
         try
         {

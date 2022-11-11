@@ -251,6 +251,150 @@ namespace Amadeus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zarządzaj swoimi rolami..
+        /// </summary>
+        internal static string role_description {
+            get {
+                return ResourceManager.GetString("role.description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ta rola nie może zostać nadana!.
+        /// </summary>
+        internal static string Role_DisallowedRole {
+            get {
+                return ResourceManager.GetString("Role.DisallowedRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dodaj sobie ogólnodostępną rolę. .
+        /// </summary>
+        internal static string role_give_description {
+            get {
+                return ResourceManager.GetString("role.give.description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dodaj.
+        /// </summary>
+        internal static string role_give_name {
+            get {
+                return ResourceManager.GetString("role.give.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rola do dodania.
+        /// </summary>
+        internal static string role_give_role_description {
+            get {
+                return ResourceManager.GetString("role.give.role.description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rola.
+        /// </summary>
+        internal static string role_give_role_name {
+            get {
+                return ResourceManager.GetString("role.give.role.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        internal static string Role_MessageHeader {
+            get {
+                return ResourceManager.GetString("Role.MessageHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rola.
+        /// </summary>
+        internal static string role_name {
+            get {
+                return ResourceManager.GetString("role.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nadano {0} rolę {1}!.
+        /// </summary>
+        internal static string Role_RoleGrantedSuccessfully {
+            get {
+                return ResourceManager.GetString("Role.RoleGrantedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odebrano {0} rolę {1}!.
+        /// </summary>
+        internal static string Role_RoleTakenSuccessfully {
+            get {
+                return ResourceManager.GetString("Role.RoleTakenSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zabierz sobie ogólnodostępną rolę..
+        /// </summary>
+        internal static string role_take_description {
+            get {
+                return ResourceManager.GetString("role.take.description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to zabierz.
+        /// </summary>
+        internal static string role_take_name {
+            get {
+                return ResourceManager.GetString("role.take.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rola do zabrania.
+        /// </summary>
+        internal static string role_take_role_description {
+            get {
+                return ResourceManager.GetString("role.take.role.description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rola.
+        /// </summary>
+        internal static string role_take_role_name {
+            get {
+                return ResourceManager.GetString("role.take.role.name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Masz już tę rolę!.
+        /// </summary>
+        internal static string Role_YouAlreadyHaveTheRole {
+            get {
+                return ResourceManager.GetString("Role.YouAlreadyHaveTheRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie masz tej roli!.
+        /// </summary>
+        internal static string Role_YouDontHaveTheRole {
+            get {
+                return ResourceManager.GetString("Role.YouDontHaveTheRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sprawdź statystyki bota..
         /// </summary>
         internal static string statistics_description {

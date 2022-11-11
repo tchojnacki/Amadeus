@@ -181,6 +181,54 @@ Podaj liczbę z zakresu 1 do {0}.</value>
   <data name="purge.name" xml:space="preserve">
     <value>czyść</value>
   </data>
+  <data name="role.description" xml:space="preserve">
+    <value>Zarządzaj swoimi rolami.</value>
+  </data>
+  <data name="Role.DisallowedRole" xml:space="preserve">
+    <value>Ta rola nie może zostać nadana!</value>
+  </data>
+  <data name="role.give.description" xml:space="preserve">
+    <value>Dodaj sobie ogólnodostępną rolę. </value>
+  </data>
+  <data name="role.give.name" xml:space="preserve">
+    <value>dodaj</value>
+  </data>
+  <data name="role.give.role.description" xml:space="preserve">
+    <value>Rola do dodania</value>
+  </data>
+  <data name="role.give.role.name" xml:space="preserve">
+    <value>rola</value>
+  </data>
+  <data name="Role.MessageHeader" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="role.name" xml:space="preserve">
+    <value>rola</value>
+  </data>
+  <data name="Role.RoleGrantedSuccessfully" xml:space="preserve">
+    <value>Nadano {0} rolę {1}!</value>
+  </data>
+  <data name="Role.RoleTakenSuccessfully" xml:space="preserve">
+    <value>Odebrano {0} rolę {1}!</value>
+  </data>
+  <data name="role.take.description" xml:space="preserve">
+    <value>Zabierz sobie ogólnodostępną rolę.</value>
+  </data>
+  <data name="role.take.name" xml:space="preserve">
+    <value>zabierz</value>
+  </data>
+  <data name="role.take.role.description" xml:space="preserve">
+    <value>Rola do zabrania</value>
+  </data>
+  <data name="role.take.role.name" xml:space="preserve">
+    <value>rola</value>
+  </data>
+  <data name="Role.YouAlreadyHaveTheRole" xml:space="preserve">
+    <value>Masz już tę rolę!</value>
+  </data>
+  <data name="Role.YouDontHaveTheRole" xml:space="preserve">
+    <value>Nie masz tej roli!</value>
+  </data>
   <data name="statistics.description" xml:space="preserve">
     <value>Sprawdź statystyki bota.</value>
   </data>
