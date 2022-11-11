@@ -15,8 +15,8 @@ internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, str
 
     private sealed class KillAction
     {
-        public IReadOnlyCollection<int> KillerIndices { get; init; } = default!;
-        public IReadOnlyCollection<int> VictimIndices { get; init; } = default!;
+        public required IReadOnlyCollection<int> KillerIndices { get; init; }
+        public required IReadOnlyCollection<int> VictimIndices { get; init; }
     }
 
     private static int RollParticipantCount(int maxCountInclusive)

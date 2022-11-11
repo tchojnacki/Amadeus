@@ -2,5 +2,5 @@
 
 internal sealed record PlayGameQuery : IStreamRequest<string>
 {
-    public IReadOnlyCollection<string> PlayerNames { get; init; } = default!;
+    public required IReadOnlyCollection<string> PlayerNames { get; init; }
 }

@@ -2,8 +2,8 @@
 
 internal sealed record BotStatsDto
 {
-    public int LatencyMs { get; init; }
-    public int VideoCount { get; init; }
-    public int QuoteCount { get; init; }
-    public int GrantedExpSum { get; init; }
+    public required int LatencyMs { get; init; }
+    public required int VideoCount { get; init; }
+    public required int QuoteCount { get; init; }
+    public required int GrantedExpSum { get; init; }
 }
