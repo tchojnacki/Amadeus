@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
-using Amadeus.Utils;
+using Amadeus.Common.Utils;
 using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Amadeus.Services;
+namespace Amadeus.Common.Services;
 
 internal sealed class InteractionHandlerService : IInteractionHandlerService
 {

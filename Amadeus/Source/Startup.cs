@@ -1,5 +1,5 @@
-﻿using Amadeus;
-using Amadeus.Utils;
+﻿using Amadeus.Common;
+using Amadeus.Common.Utils;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,5 +1,5 @@
-﻿using Amadeus.Modules.Statistics.GetBotStats;
-using Amadeus.Services;
+﻿using Amadeus.Common.Services;
+using Amadeus.Modules.Statistics.GetBotStats;
 using Discord.Interactions;
 
 namespace Amadeus.Modules.Statistics;

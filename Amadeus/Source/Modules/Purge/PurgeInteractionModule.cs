@@ -1,5 +1,4 @@
-﻿using Amadeus.Services;
-using Discord;
+﻿using Amadeus.Common.Services;
 using Discord.Interactions;
 using Microsoft.Extensions.Configuration;
 

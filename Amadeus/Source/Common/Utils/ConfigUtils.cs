@@ -1,7 +1,7 @@
 ﻿using dotenv.net;
 using Microsoft.Extensions.Configuration;
 
-namespace Amadeus.Utils;
+namespace Amadeus.Common.Utils;
 
 internal static class ConfigUtils
 {

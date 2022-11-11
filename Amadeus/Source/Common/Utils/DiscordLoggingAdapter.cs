@@ -1,7 +1,6 @@
-﻿using Discord;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
-namespace Amadeus.Utils;
+namespace Amadeus.Common.Utils;
 
 internal static class DiscordLoggingAdapter
 {

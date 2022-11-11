@@ -1,4 +1,4 @@
-﻿namespace Amadeus.Services;
+﻿namespace Amadeus.Common.Services;
 
 internal interface IInteractionHandlerService
 {

@@ -1,6 +1,4 @@
-﻿using Discord;
-
-namespace Amadeus.Services;
+﻿namespace Amadeus.Common.Services;
 
 public interface IMessageBuilderService
 {
