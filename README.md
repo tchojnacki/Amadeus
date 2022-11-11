@@ -13,8 +13,8 @@ More modules underway 🚧👷
 
 ## Technology ⚙️
 Primary:
-- [C# 10](https://learn.microsoft.com/en-us/dotnet/csharp)
-- [.NET 6.0](https://dotnet.microsoft.com/en-us)
+- [C# 11](https://learn.microsoft.com/en-us/dotnet/csharp)
+- [.NET 7](https://dotnet.microsoft.com/en-us)
 - [Discord.Net](https://discordnet.dev)
 - [MediatR](https://github.com/jbogard/MediatR)
 - Microsoft.Extensions ([Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration), [DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection), [Logging](https://www.nuget.org/packages/Microsoft.Extensions.Logging))
