@@ -1,7 +1,6 @@
-﻿using Amadeus.Services;
-using Discord;
+﻿using Amadeus.Common.Services;
+using Amadeus.Modules.Purge.DeleteMessages;
 using Discord.Interactions;
-using Microsoft.Extensions.Configuration;
 
 namespace Amadeus.Modules.Purge;
 
@@ -9,15 +8,12 @@ namespace Amadeus.Modules.Purge;
 public sealed class PurgeInteractionModule : InteractionModuleBase<SocketInteractionContext>
 {
     private readonly IMessageBuilderService _messageBuilder;
-    private readonly IConfiguration _configuration;
+    private readonly IMediator _mediator;
 
-    public PurgeInteractionModule(
-        IMessageBuilderService messageBuilder,
-        IConfiguration configuration
-    )
+    public PurgeInteractionModule(IMessageBuilderService messageBuilder, IMediator mediator)
     {
         _messageBuilder = messageBuilder;
-        _configuration = configuration;
+        _mediator = mediator;
     }
 
     [EnabledInDm(false)]
@@ -27,35 +23,22 @@ public sealed class PurgeInteractionModule : InteractionModuleBase<SocketInterac
         [Summary("count", "Number of messages to delete")] int count
     )
     {
-        var deletionLimit = _configuration.GetValue<int>("Modules:Purge:MaxMessagesPerPurge");
-        if (count < 1 || count > deletionLimit)
-        {
-            await RespondAsync(
-                embed: _messageBuilder.ErrorEmbed(
-                    string.Format(I18n.Purge_IncorrectMessageCount, deletionLimit)
-                ),
-                ephemeral: true
-            );
-            return;
-        }
-
-        if (Context.Channel is not ITextChannel channel)
-        {
-            await RespondAsync(
-                embed: _messageBuilder.ErrorEmbed(I18n.Purge_InvalidChannelType),
-                ephemeral: true
-            );
-            return;
-        }
-
-        var messages = await channel.GetMessagesAsync(count).FlattenAsync();
-        await channel.DeleteMessagesAsync(messages);
+        var request = new DeleteMessagesRequest { Channel = Context.Channel, Count = count, };
+        var response = await _mediator.Send(request);
 
         await RespondAsync(
-            embed: _messageBuilder.ResponseTemplate
-                .WithTitle($"/{I18n.purge_name}")
-                .WithDescription(string.Format(I18n.Purge_DeletedCount, count))
-                .Build(),
+            embed: response.Match(
+                _ =>
+                    _messageBuilder.ResponseTemplate
+                        .WithTitle($"/{I18n.purge_name}")
+                        .WithDescription(string.Format(I18n.Purge_DeletedCount, count))
+                        .Build(),
+                error =>
+                    _messageBuilder.ErrorEmbed(
+                        string.Format(I18n.Purge_IncorrectMessageCount, error.DeletionLimit)
+                    ),
+                _ => _messageBuilder.ErrorEmbed(I18n.Purge_InvalidChannelType)
+            ),
             ephemeral: true
         );
     }

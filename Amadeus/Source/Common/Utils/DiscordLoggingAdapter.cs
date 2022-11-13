@@ -1,7 +1,7 @@
-﻿using Discord;
+﻿using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 
-namespace Amadeus.Utils;
+namespace Amadeus.Common.Utils;
 
 internal static class DiscordLoggingAdapter
 {
@@ -26,6 +26,6 @@ internal static class DiscordLoggingAdapter
             LogSeverity.Info => LogLevel.Information,
             LogSeverity.Verbose => LogLevel.Debug,
             LogSeverity.Debug => LogLevel.Trace,
-            _ => throw new InvalidOperationException(),
+            _ => throw new UnreachableException()
         };
 }

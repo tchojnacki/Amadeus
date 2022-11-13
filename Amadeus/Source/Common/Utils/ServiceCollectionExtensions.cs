@@ -1,14 +1,13 @@
-﻿using Amadeus.Services;
-using Discord;
+﻿using System.Globalization;
+using System.Reflection;
+using Amadeus.Common.Services;
 using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System.Globalization;
-using System.Reflection;
 
-namespace Amadeus.Utils;
+namespace Amadeus.Common.Utils;
 
 internal static class ServiceCollectionExtensions
 {

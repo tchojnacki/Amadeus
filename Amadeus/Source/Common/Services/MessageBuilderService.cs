@@ -1,7 +1,6 @@
-﻿using Discord;
-using Discord.WebSocket;
+﻿using Discord.WebSocket;
 
-namespace Amadeus.Services;
+namespace Amadeus.Common.Services;
 
 internal sealed class MessageBuilderService : IMessageBuilderService
 {

@@ -1,9 +1,10 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Amadeus.Modules.BattleRoyale.PlayGame;
 
 [UsedImplicitly]
-internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, string>
+internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameRequest, GameStepResponse>
 {
     private const double TurnKillChance = 0.75;
     private static readonly Func<int, double> ParticipantCountWeight = c => Math.Pow(c, -2);
@@ -32,12 +33,12 @@ internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, str
 
         foreach (var item in items)
         {
-            if (roll < item.Weight)
+            if (roll <= item.Weight)
                 return item.Count;
             roll -= item.Weight;
         }
 
-        throw new InvalidOperationException();
+        throw new UnreachableException();
     }
 
     private static KillAction RandomKillAction(int playerCount)
@@ -69,8 +70,8 @@ internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, str
             + list.Last();
     }
 
-    public async IAsyncEnumerable<string> Handle(
-        PlayGameQuery request,
+    public async IAsyncEnumerable<GameStepResponse> Handle(
+        PlayGameRequest request,
         [EnumeratorCancellation] CancellationToken cancellationToken
     )
     {
@@ -84,23 +85,29 @@ internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, str
                 var killers = killAction.KillerIndices.Select(i => players[i]);
                 var victims = killAction.VictimIndices.Select(i => players[i]);
 
-                yield return string.Format(
-                    I18n.BattleRoyale_Eliminates,
-                    FormatPlayerGroup(killers),
-                    FormatPlayerGroup(victims)
-                );
+                yield return new GameStepResponse
+                {
+                    Text = string.Format(
+                        I18n.BattleRoyale_Eliminates,
+                        FormatPlayerGroup(killers),
+                        FormatPlayerGroup(victims)
+                    )
+                };
 
                 foreach (var victimIndex in killAction.VictimIndices.OrderByDescending(i => i))
                     players.RemoveAt(victimIndex);
             }
             else
             {
-                yield return I18n.BattleRoyale_NothingHappens;
+                yield return new GameStepResponse { Text = I18n.BattleRoyale_NothingHappens };
             }
 
             await Task.Delay(RandomDelayDuration(), cancellationToken);
         }
 
-        yield return string.Format(I18n.BattleRoyale_Wins, players.Single());
+        yield return new GameStepResponse
+        {
+            Text = string.Format(I18n.BattleRoyale_Wins, players.Single())
+        };
     }
 }

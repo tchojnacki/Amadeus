@@ -1,10 +1,9 @@
-﻿using Amadeus.Services;
-using Amadeus.Utils;
-using Discord;
+﻿using Amadeus.Common.Services;
+using Amadeus.Common.Utils;
 using Discord.WebSocket;
 using Microsoft.Extensions.Logging;
 
-namespace Amadeus;
+namespace Amadeus.Common;
 
 internal sealed class Bot
 {

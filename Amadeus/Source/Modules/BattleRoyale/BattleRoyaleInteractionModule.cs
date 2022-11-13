@@ -1,9 +1,7 @@
 ﻿using Amadeus.Modules.BattleRoyale.PlayGame;
-using Amadeus.Services;
-using Discord;
 using Discord.Interactions;
-using Discord.WebSocket;
-using System.Text.RegularExpressions;
+using Amadeus.Common.Services;
+using Amadeus.Modules.BattleRoyale.SetupGame;
 
 namespace Amadeus.Modules.BattleRoyale;
 
@@ -11,22 +9,14 @@ namespace Amadeus.Modules.BattleRoyale;
 public sealed class BattleRoyaleInteractionModule : InteractionModuleBase<SocketInteractionContext>
 {
     private const string ThreadName = "battle-royale";
-    private static readonly Regex PlayerNamePattern =
-        new("(?:[^\\s\"]+|\"[^\"]*\")+", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
     private readonly IMediator _mediator;
     private readonly IMessageBuilderService _messageBuilder;
-    private readonly DiscordSocketClient _discordSocketClient;
 
-    public BattleRoyaleInteractionModule(
-        IMediator mediator,
-        IMessageBuilderService messageBuilder,
-        DiscordSocketClient discordSocketClient
-    )
+    public BattleRoyaleInteractionModule(IMediator mediator, IMessageBuilderService messageBuilder)
     {
         _mediator = mediator;
         _messageBuilder = messageBuilder;
-        _discordSocketClient = discordSocketClient;
     }
 
     [EnabledInDm(true)]
@@ -35,35 +25,29 @@ public sealed class BattleRoyaleInteractionModule : InteractionModuleBase<Socket
         [Summary(name: "players", description: "Players separated by a space")] string rawPlayers
     )
     {
-        var playerNames = PlayerNamePattern
-            .Matches(rawPlayers)
-            .Select(p => p.Value.Trim('"'))
-            .ToList();
+        var setupGameRequest = new SetupGameRequest
+        {
+            ChannelId = Context.Channel.Id,
+            RawPlayersArgument = rawPlayers
+        };
+        var setupGameResponse = await _mediator.Send(setupGameRequest);
 
-        if (playerNames.Count < 2)
+        if (!setupGameResponse.IsT0)
         {
             await RespondAsync(
-                embed: _messageBuilder.ErrorEmbed(I18n.BattleRoyale_NotEnoughPlayers),
+                embed: _messageBuilder.ErrorEmbed(
+                    setupGameResponse.Match(
+                        default,
+                        _ => I18n.BattleRoyale_NotEnoughPlayers,
+                        _ => I18n.BattleRoyale_MustBeUsedInTextChannel
+                    )
+                ),
                 ephemeral: true
             );
             return;
         }
 
-        var channel = Context.Interaction.ChannelId is { } channelId
-            ? (await _discordSocketClient.GetChannelAsync(channelId))
-            : null;
-
-        if (channel is not ITextChannel textChannel)
-        {
-            await RespondAsync(
-                embed: _messageBuilder.ErrorEmbed(I18n.BattleRoyale_MustBeUsedInTextChannel),
-                ephemeral: true
-            );
-            return;
-        }
-
-        var query = new PlayGameQuery { PlayerNames = playerNames };
-        var response = _mediator.CreateStream(query, CancellationToken.None);
+        var gameSettings = setupGameResponse.AsT0!;
 
         await RespondAsync(
             embed: _messageBuilder.ResponseTemplate
@@ -71,22 +55,23 @@ public sealed class BattleRoyaleInteractionModule : InteractionModuleBase<Socket
                 .WithDescription(I18n.BattleRoyale_StartingGame)
                 .AddField(
                     I18n.BattleRoyale_Players,
-                    string.Join(I18n.BattleRoyale_PlayerListConnector, playerNames)
+                    string.Join(I18n.BattleRoyale_PlayerListConnector, gameSettings.PlayerNames)
                 )
                 .Build()
         );
 
         var message = await GetOriginalResponseAsync();
 
-        var thread = await textChannel.CreateThreadAsync(
+        var thread = await gameSettings.TextChannel.CreateThreadAsync(
             ThreadName,
             autoArchiveDuration: ThreadArchiveDuration.OneHour,
             message: message
         );
 
-        await foreach (var prompt in response)
-        {
-            await thread.SendMessageAsync(prompt);
-        }
+        var playGameRequest = new PlayGameRequest { PlayerNames = gameSettings.PlayerNames };
+        var playGameResponse = _mediator.CreateStream(playGameRequest, CancellationToken.None);
+
+        await foreach (var step in playGameResponse)
+            await thread.SendMessageAsync(step.Text);
     }
 }

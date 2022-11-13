@@ -1,5 +1,5 @@
-﻿using Amadeus.Modules.Statistics.GetBotStats;
-using Amadeus.Services;
+﻿using Amadeus.Common.Services;
+using Amadeus.Modules.Statistics.GetBotStats;
 using Discord.Interactions;
 
 namespace Amadeus.Modules.Statistics;
@@ -20,8 +20,8 @@ public sealed class StatisticsInteractionModule : InteractionModuleBase<SocketIn
     [SlashCommand("statistics", "Show bot's statistics.")]
     public async Task ExecuteStatisticsCommandAsync()
     {
-        var query = new GetBotStatsQuery();
-        var response = await _mediator.Send(query);
+        var request = GetBotStatsRequest.Instance;
+        var response = await _mediator.Send(request);
 
         await RespondAsync(
             embed: _messageBuilder.ResponseTemplate
