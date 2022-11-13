@@ -1,10 +1,8 @@
 ﻿using Discord.WebSocket;
-using OneOf;
 
 namespace Amadeus.Modules.Role.ModifyRole;
 
-internal sealed record ModifyRoleRequest
-    : IRequest<OneOf<ModifyRoleSuccessResponse, ModifyRoleErrorResponse>>
+internal sealed record ModifyRoleRequest : IRequest<ModifyRoleResponse>
 {
     public required SocketGuildUser Member { get; init; }
     public required IRole Role { get; init; }

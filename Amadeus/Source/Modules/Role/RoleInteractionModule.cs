@@ -8,6 +8,39 @@ namespace Amadeus.Modules.Role;
 [Group("role", "Manage your roles.")]
 public sealed class RoleInteractionModule : InteractionModuleBase<SocketInteractionContext>
 {
+    private Embed ResponseEmbed(
+        ModifyRoleResponse modifyRoleResponse,
+        IGuildUser member,
+        IRole role
+    ) =>
+        modifyRoleResponse.Match(
+            _ =>
+                _messageBuilder.ResponseTemplate
+                    .WithTitle(I18n.Role_MessageHeader)
+                    .WithDescription(
+                        string.Format(
+                            I18n.Role_RoleGrantedSuccessfully,
+                            member.Mention,
+                            role.Mention
+                        )
+                    )
+                    .Build(),
+            _ =>
+                _messageBuilder.ResponseTemplate
+                    .WithTitle(I18n.Role_MessageHeader)
+                    .WithDescription(
+                        string.Format(
+                            I18n.Role_RoleGrantedSuccessfully,
+                            member.Mention,
+                            role.Mention
+                        )
+                    )
+                    .Build(),
+            _ => _messageBuilder.ErrorEmbed(I18n.Role_DisallowedRole),
+            _ => _messageBuilder.ErrorEmbed(I18n.Role_YouAlreadyHaveTheRole),
+            _ => _messageBuilder.ErrorEmbed(I18n.Role_YouDontHaveTheRole)
+        );
+
     private readonly IMessageBuilderService _messageBuilder;
     private readonly IMediator _mediator;
 
@@ -33,22 +66,7 @@ public sealed class RoleInteractionModule : InteractionModuleBase<SocketInteract
         };
         var response = await _mediator.Send(request);
 
-        var embed = response.Match(
-            _ =>
-                _messageBuilder.ResponseTemplate
-                    .WithTitle(I18n.Role_MessageHeader)
-                    .WithDescription(
-                        string.Format(
-                            I18n.Role_RoleGrantedSuccessfully,
-                            member.Mention,
-                            role.Mention
-                        )
-                    )
-                    .Build(),
-            error => _messageBuilder.ErrorEmbed(error.Message)
-        );
-
-        await RespondAsync(embed: embed, ephemeral: true);
+        await RespondAsync(embed: ResponseEmbed(response, member, role), ephemeral: true);
     }
 
     [EnabledInDm(false)]
@@ -67,17 +85,6 @@ public sealed class RoleInteractionModule : InteractionModuleBase<SocketInteract
         };
         var response = await _mediator.Send(request);
 
-        var embed = response.Match(
-            _ =>
-                _messageBuilder.ResponseTemplate
-                    .WithTitle(I18n.Role_MessageHeader)
-                    .WithDescription(
-                        string.Format(I18n.Role_RoleTakenSuccessfully, member.Mention, role.Mention)
-                    )
-                    .Build(),
-            error => _messageBuilder.ErrorEmbed(error.Message)
-        );
-
-        await RespondAsync(embed: embed, ephemeral: true);
+        await RespondAsync(embed: ResponseEmbed(response, member, role), ephemeral: true);
     }
 }
