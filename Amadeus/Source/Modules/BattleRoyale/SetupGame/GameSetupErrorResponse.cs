@@ -1,6 +1,6 @@
 ﻿namespace Amadeus.Modules.BattleRoyale.SetupGame;
 
-public record GameSetupErrorResponse
+internal sealed record GameSetupErrorResponse
 {
     public required string Message { get; init; }
 }

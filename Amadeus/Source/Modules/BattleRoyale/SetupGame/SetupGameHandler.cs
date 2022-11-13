@@ -6,7 +6,7 @@ namespace Amadeus.Modules.BattleRoyale.SetupGame;
 
 [UsedImplicitly]
 internal sealed class SetupGameHandler
-    : IRequestHandler<SetupGameQuery, OneOf<GameSettingsResponse, GameSetupErrorResponse>>
+    : IRequestHandler<SetupGameRequest, OneOf<GameSettingsResponse, GameSetupErrorResponse>>
 {
     private static readonly Regex PlayerNamePattern =
         new("(?:[^\\s\"]+|\"[^\"]*\")+", RegexOptions.Compiled | RegexOptions.CultureInvariant);
@@ -17,7 +17,7 @@ internal sealed class SetupGameHandler
         _discordSocketClient = discordSocketClient;
 
     public async Task<OneOf<GameSettingsResponse, GameSetupErrorResponse>> Handle(
-        SetupGameQuery request,
+        SetupGameRequest request,
         CancellationToken cancellationToken
     )
     {

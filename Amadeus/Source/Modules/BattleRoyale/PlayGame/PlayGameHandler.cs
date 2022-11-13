@@ -1,9 +1,10 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Amadeus.Modules.BattleRoyale.PlayGame;
 
 [UsedImplicitly]
-internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, GameStepResponse>
+internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameRequest, GameStepResponse>
 {
     private const double TurnKillChance = 0.75;
     private static readonly Func<int, double> ParticipantCountWeight = c => Math.Pow(c, -2);
@@ -32,12 +33,12 @@ internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, Gam
 
         foreach (var item in items)
         {
-            if (roll < item.Weight)
+            if (roll <= item.Weight)
                 return item.Count;
             roll -= item.Weight;
         }
 
-        throw new InvalidOperationException();
+        throw new UnreachableException();
     }
 
     private static KillAction RandomKillAction(int playerCount)
@@ -70,7 +71,7 @@ internal sealed class PlayGameHandler : IStreamRequestHandler<PlayGameQuery, Gam
     }
 
     public async IAsyncEnumerable<GameStepResponse> Handle(
-        PlayGameQuery request,
+        PlayGameRequest request,
         [EnumeratorCancellation] CancellationToken cancellationToken
     )
     {

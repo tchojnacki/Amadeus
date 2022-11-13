@@ -25,12 +25,12 @@ public sealed class BattleRoyaleInteractionModule : InteractionModuleBase<Socket
         [Summary(name: "players", description: "Players separated by a space")] string rawPlayers
     )
     {
-        var setupGameQuery = new SetupGameQuery
+        var setupGameRequest = new SetupGameRequest
         {
             ChannelId = Context.Channel.Id,
             RawPlayersArgument = rawPlayers
         };
-        var setupGameResponse = await _mediator.Send(setupGameQuery);
+        var setupGameResponse = await _mediator.Send(setupGameRequest);
 
         if (setupGameResponse.TryPickT1(out var error, out _))
         {
@@ -59,8 +59,8 @@ public sealed class BattleRoyaleInteractionModule : InteractionModuleBase<Socket
             message: message
         );
 
-        var playGameQuery = new PlayGameQuery { PlayerNames = gameSettings.PlayerNames };
-        var playGameResponse = _mediator.CreateStream(playGameQuery, CancellationToken.None);
+        var playGameRequest = new PlayGameRequest { PlayerNames = gameSettings.PlayerNames };
+        var playGameResponse = _mediator.CreateStream(playGameRequest, CancellationToken.None);
 
         await foreach (var step in playGameResponse)
             await thread.SendMessageAsync(step.Text);

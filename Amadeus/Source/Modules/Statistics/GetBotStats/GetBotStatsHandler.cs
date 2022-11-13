@@ -3,22 +3,23 @@
 namespace Amadeus.Modules.Statistics.GetBotStats;
 
 [UsedImplicitly]
-internal sealed class GetBotStatsHandler : IRequestHandler<GetBotStatsQuery, BotStatsDto>
+internal sealed class GetBotStatsHandler : IRequestHandler<GetBotStatsRequest, BotStatsResponse>
 {
     private readonly DiscordSocketClient _client;
 
     public GetBotStatsHandler(DiscordSocketClient client) => _client = client;
 
-    public Task<BotStatsDto> Handle(GetBotStatsQuery query, CancellationToken cancellationToken)
-    {
-        var dto = new BotStatsDto
-        {
-            LatencyMs = _client.Latency,
-            VideoCount = 0,
-            QuoteCount = 0,
-            GrantedExpSum = 0
-        };
-
-        return Task.FromResult(dto);
-    }
+    public Task<BotStatsResponse> Handle(
+        GetBotStatsRequest request,
+        CancellationToken cancellationToken
+    ) =>
+        Task.FromResult(
+            new BotStatsResponse
+            {
+                LatencyMs = _client.Latency,
+                VideoCount = 0,
+                QuoteCount = 0,
+                GrantedExpSum = 0
+            }
+        );
 }
