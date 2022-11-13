@@ -1,6 +1,6 @@
 ﻿namespace Amadeus.Modules.Statistics.GetBotStats;
 
-internal sealed record BotStatsResponse
+internal sealed record GetBotStatsResponse
 {
     public required int LatencyMs { get; init; }
     public required int VideoCount { get; init; }

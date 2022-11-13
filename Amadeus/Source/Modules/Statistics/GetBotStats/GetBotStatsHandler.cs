@@ -3,18 +3,18 @@
 namespace Amadeus.Modules.Statistics.GetBotStats;
 
 [UsedImplicitly]
-internal sealed class GetBotStatsHandler : IRequestHandler<GetBotStatsRequest, BotStatsResponse>
+internal sealed class GetBotStatsHandler : IRequestHandler<GetBotStatsRequest, GetBotStatsResponse>
 {
     private readonly DiscordSocketClient _client;
 
     public GetBotStatsHandler(DiscordSocketClient client) => _client = client;
 
-    public Task<BotStatsResponse> Handle(
+    public Task<GetBotStatsResponse> Handle(
         GetBotStatsRequest request,
         CancellationToken cancellationToken
     ) =>
         Task.FromResult(
-            new BotStatsResponse
+            new GetBotStatsResponse
             {
                 LatencyMs = _client.Latency,
                 VideoCount = 0,

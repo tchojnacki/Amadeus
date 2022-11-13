@@ -6,7 +6,7 @@ namespace Amadeus.Modules.BattleRoyale.SetupGame;
 
 [UsedImplicitly]
 internal sealed class SetupGameHandler
-    : IRequestHandler<SetupGameRequest, OneOf<GameSettingsResponse, GameSetupErrorResponse>>
+    : IRequestHandler<SetupGameRequest, OneOf<SetupGameSuccessResponse, SetupGameErrorResponse>>
 {
     private static readonly Regex PlayerNamePattern =
         new("(?:[^\\s\"]+|\"[^\"]*\")+", RegexOptions.Compiled | RegexOptions.CultureInvariant);
@@ -16,7 +16,7 @@ internal sealed class SetupGameHandler
     public SetupGameHandler(DiscordSocketClient discordSocketClient) =>
         _discordSocketClient = discordSocketClient;
 
-    public async Task<OneOf<GameSettingsResponse, GameSetupErrorResponse>> Handle(
+    public async Task<OneOf<SetupGameSuccessResponse, SetupGameErrorResponse>> Handle(
         SetupGameRequest request,
         CancellationToken cancellationToken
     )
@@ -28,19 +28,23 @@ internal sealed class SetupGameHandler
 
         if (playerNames.Count < 2)
         {
-            return new GameSetupErrorResponse { Message = I18n.BattleRoyale_NotEnoughPlayers };
+            return new SetupGameErrorResponse { Message = I18n.BattleRoyale_NotEnoughPlayers };
         }
 
         var channel = await _discordSocketClient.GetChannelAsync(request.ChannelId);
 
         if (channel is not ITextChannel textChannel)
         {
-            return new GameSetupErrorResponse
+            return new SetupGameErrorResponse
             {
                 Message = I18n.BattleRoyale_MustBeUsedInTextChannel
             };
         }
 
-        return new GameSettingsResponse { PlayerNames = playerNames, TextChannel = textChannel };
+        return new SetupGameSuccessResponse
+        {
+            PlayerNames = playerNames,
+            TextChannel = textChannel
+        };
     }
 }

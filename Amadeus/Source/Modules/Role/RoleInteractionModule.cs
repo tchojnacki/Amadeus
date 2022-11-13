@@ -1,6 +1,6 @@
 ﻿using Amadeus.Common.Services;
+using Amadeus.Modules.Role.ModifyRole;
 using Discord.Interactions;
-using Microsoft.Extensions.Configuration;
 
 namespace Amadeus.Modules.Role;
 
@@ -8,30 +8,13 @@ namespace Amadeus.Modules.Role;
 [Group("role", "Manage your roles.")]
 public sealed class RoleInteractionModule : InteractionModuleBase<SocketInteractionContext>
 {
-    private readonly IReadOnlyCollection<ulong> _allowedRoles;
     private readonly IMessageBuilderService _messageBuilder;
+    private readonly IMediator _mediator;
 
-    public RoleInteractionModule(
-        IConfiguration configuration,
-        IMessageBuilderService messageBuilder
-    )
+    public RoleInteractionModule(IMessageBuilderService messageBuilder, IMediator mediator)
     {
         _messageBuilder = messageBuilder;
-        _allowedRoles =
-            configuration.GetSection("Modules:Role:AllowedRoles").Get<ulong[]>()
-            ?? Array.Empty<ulong>();
-    }
-
-    private async Task<bool> CheckRoleAsync(ulong roleId)
-    {
-        if (_allowedRoles.Contains(roleId))
-            return true;
-
-        await RespondAsync(
-            embed: _messageBuilder.ErrorEmbed(I18n.Role_DisallowedRole),
-            ephemeral: true
-        );
-        return true;
+        _mediator = mediator;
     }
 
     [EnabledInDm(false)]
@@ -40,35 +23,32 @@ public sealed class RoleInteractionModule : InteractionModuleBase<SocketInteract
         [Summary("role", "The role which should be added")] IRole role
     )
     {
-        if (!await CheckRoleAsync(role.Id))
-            return;
+        var member = Context.Guild.GetUser(Context.User.Id);
 
-        var guildUser = Context.Guild.GetUser(Context.User.Id);
-
-        if (guildUser.Roles.Contains(role))
+        var request = new ModifyRoleRequest
         {
-            await RespondAsync(
-                embed: _messageBuilder.ErrorEmbed(I18n.Role_YouAlreadyHaveTheRole),
-                ephemeral: true
-            );
-            return;
-        }
+            Member = member,
+            Role = role,
+            ShouldBeOwned = true
+        };
+        var response = await _mediator.Send(request);
 
-        await guildUser.AddRoleAsync(role);
-
-        await RespondAsync(
-            embed: _messageBuilder.ResponseTemplate
-                .WithTitle(I18n.Role_MessageHeader)
-                .WithDescription(
-                    string.Format(
-                        I18n.Role_RoleGrantedSuccessfully,
-                        guildUser.Mention,
-                        role.Mention
+        var embed = response.Match(
+            _ =>
+                _messageBuilder.ResponseTemplate
+                    .WithTitle(I18n.Role_MessageHeader)
+                    .WithDescription(
+                        string.Format(
+                            I18n.Role_RoleGrantedSuccessfully,
+                            member.Mention,
+                            role.Mention
+                        )
                     )
-                )
-                .Build(),
-            ephemeral: true
+                    .Build(),
+            error => _messageBuilder.ErrorEmbed(error.Message)
         );
+
+        await RespondAsync(embed: embed, ephemeral: true);
     }
 
     [EnabledInDm(false)]
@@ -77,30 +57,27 @@ public sealed class RoleInteractionModule : InteractionModuleBase<SocketInteract
         [Summary("role", "The role which should be removed")] IRole role
     )
     {
-        if (!await CheckRoleAsync(role.Id))
-            return;
+        var member = Context.Guild.GetUser(Context.User.Id);
 
-        var guildUser = Context.Guild.GetUser(Context.User.Id);
-
-        if (!guildUser.Roles.Contains(role))
+        var request = new ModifyRoleRequest
         {
-            await RespondAsync(
-                embed: _messageBuilder.ErrorEmbed(I18n.Role_YouDontHaveTheRole),
-                ephemeral: true
-            );
-            return;
-        }
+            Member = member,
+            Role = role,
+            ShouldBeOwned = false
+        };
+        var response = await _mediator.Send(request);
 
-        await guildUser.RemoveRoleAsync(role);
-
-        await RespondAsync(
-            embed: _messageBuilder.ResponseTemplate
-                .WithTitle(I18n.Role_MessageHeader)
-                .WithDescription(
-                    string.Format(I18n.Role_RoleTakenSuccessfully, guildUser.Mention, role.Mention)
-                )
-                .Build(),
-            ephemeral: true
+        var embed = response.Match(
+            _ =>
+                _messageBuilder.ResponseTemplate
+                    .WithTitle(I18n.Role_MessageHeader)
+                    .WithDescription(
+                        string.Format(I18n.Role_RoleTakenSuccessfully, member.Mention, role.Mention)
+                    )
+                    .Build(),
+            error => _messageBuilder.ErrorEmbed(error.Message)
         );
+
+        await RespondAsync(embed: embed, ephemeral: true);
     }
 }
