@@ -26,15 +26,20 @@ public sealed class PurgeInteractionModule : InteractionModuleBase<SocketInterac
         var request = new DeleteMessagesRequest { Channel = Context.Channel, Count = count, };
         var response = await _mediator.Send(request);
 
-        var embed = response.Match(
-            _ =>
-                _messageBuilder.ResponseTemplate
-                    .WithTitle($"/{I18n.purge_name}")
-                    .WithDescription(string.Format(I18n.Purge_DeletedCount, count))
-                    .Build(),
-            error => _messageBuilder.ErrorEmbed(error.Message)
+        await RespondAsync(
+            embed: response.Match(
+                _ =>
+                    _messageBuilder.ResponseTemplate
+                        .WithTitle($"/{I18n.purge_name}")
+                        .WithDescription(string.Format(I18n.Purge_DeletedCount, count))
+                        .Build(),
+                error =>
+                    _messageBuilder.ErrorEmbed(
+                        string.Format(I18n.Purge_IncorrectMessageCount, error.DeletionLimit)
+                    ),
+                _ => _messageBuilder.ErrorEmbed(I18n.Purge_InvalidChannelType)
+            ),
+            ephemeral: true
         );
-
-        await RespondAsync(embed: embed, ephemeral: true);
     }
 }
