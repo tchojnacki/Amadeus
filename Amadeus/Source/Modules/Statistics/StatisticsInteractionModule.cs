@@ -20,7 +20,7 @@ public sealed class StatisticsInteractionModule : InteractionModuleBase<SocketIn
     [SlashCommand("statistics", "Show bot's statistics.")]
     public async Task ExecuteStatisticsCommandAsync()
     {
-        var request = new GetBotStatsRequest();
+        var request = GetBotStatsRequest.Instance;
         var response = await _mediator.Send(request);
 
         await RespondAsync(

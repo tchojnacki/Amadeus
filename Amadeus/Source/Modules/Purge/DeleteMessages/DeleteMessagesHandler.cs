@@ -32,6 +32,6 @@ internal sealed class DeleteMessagesHandler
         var messages = await channel.GetMessagesAsync(request.Count).FlattenAsync();
         await channel.DeleteMessagesAsync(messages);
 
-        return new DeletedSuccessfullyResponse();
+        return DeletedSuccessfullyResponse.Instance;
     }
 }
