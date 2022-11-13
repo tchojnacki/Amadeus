@@ -1,9 +1,6 @@
-﻿using OneOf;
+﻿namespace Amadeus.Modules.BattleRoyale.SetupGame;
 
-namespace Amadeus.Modules.BattleRoyale.SetupGame;
-
-internal sealed record SetupGameRequest
-    : IRequest<OneOf<SetupGameSuccessResponse, SetupGameErrorResponse>>
+internal sealed record SetupGameRequest : IRequest<SetupGameResponse>
 {
     public required string RawPlayersArgument { get; init; }
     public required ulong ChannelId { get; init; }

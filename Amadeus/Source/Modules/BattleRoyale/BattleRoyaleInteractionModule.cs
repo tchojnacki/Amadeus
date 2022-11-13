@@ -32,13 +32,22 @@ public sealed class BattleRoyaleInteractionModule : InteractionModuleBase<Socket
         };
         var setupGameResponse = await _mediator.Send(setupGameRequest);
 
-        if (setupGameResponse.TryPickT1(out var error, out _))
+        if (!setupGameResponse.IsT0)
         {
-            await RespondAsync(embed: _messageBuilder.ErrorEmbed(error.Message), ephemeral: true);
+            await RespondAsync(
+                embed: _messageBuilder.ErrorEmbed(
+                    setupGameResponse.Match(
+                        default,
+                        _ => I18n.BattleRoyale_NotEnoughPlayers,
+                        _ => I18n.BattleRoyale_MustBeUsedInTextChannel
+                    )
+                ),
+                ephemeral: true
+            );
             return;
         }
 
-        var gameSettings = setupGameResponse.AsT0;
+        var gameSettings = setupGameResponse.AsT0!;
 
         await RespondAsync(
             embed: _messageBuilder.ResponseTemplate
